@@ -1,0 +1,16 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 318" width="24" height="21">
+	<title>hamburger-menu-svg</title>
+	<defs>
+		<clipPath clipPathUnits="userSpaceOnUse" id="cp1">
+			<path d="m449-1v64h-448v-64zm0 128v64h-448v-64zm0 128v64h-448v-64z"/>
+		</clipPath>
+		<image  width="512" height="512" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIAAQMAAADOtka5AAAAAXNSR0IB2cksfwAAAANQTFRF////p8QbyAAAADZJREFUeJztwQEBAAAAgiD/r25IQAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfBuCAAAB0niJ8AAAAABJRU5ErkJggg=="/>
+	</defs>
+	<style>
+		.s0 { fill: #000000 } 
+	</style>
+	<g clip-path="url(#cp1)">
+		<path id="Layer" class="s0" d="m449-1v64h-448v-64zm0 128v64h-448v-64zm0 128v64h-448v-64z"/>
+		<use id="Layer 1" href="#img1" x="-31" y="-97"/>
+	</g>
+</svg>
