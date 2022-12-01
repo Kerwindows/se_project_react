@@ -5,6 +5,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Header from "./Header";
 import Login from "./Login";
 import Register from "./Register";
+import InfoTooltip from "./InfoTooltip";
 import Landingpage from "./Landingpage";
 import * as auth from '../utils/auth.js';
 import "../index.css";
@@ -12,9 +13,17 @@ import "../index.css";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [route, setRoute] = React.useState("signin");
+  const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
 
   const handleSignInSignUp = (route) => {
     setRoute(route)
+  }
+
+  function handleInfoTooltip() {
+    setInfoTooltipOpen(true);
+  }
+  function closeInfoPopup() {
+    setInfoTooltipOpen(false);
   }
 
   function handleTokenCheck() {
@@ -50,7 +59,8 @@ function App() {
             <Login handleSignInSignUp={handleSignInSignUp} route={route} handleLogin={handleLogin} />
           </Route>
           <Route path="/signup">
-            <Register handleSignInSignUp={handleSignInSignUp} route={route} />
+            <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeInfoPopup} />
+            <Register handleSignInSignUp={handleSignInSignUp} route={route} handleInfoTooltip={handleInfoTooltip} />
           </Route>
           <Route path="/cards">
             <Landingpage />

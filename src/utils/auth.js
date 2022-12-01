@@ -19,27 +19,27 @@ export const register = (password, email) => {
     .catch((err) => console.log(err));
 };
 
-export const authorize = (password, identifier) => {
+export const authorize = (identifier, password) => {
+  console.log(identifier, password);
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ password, identifier })
   })
-    .then((response => {
-      response.json()
-      console.log(response)
-    }))
+    .then((response => response.json()))
     .then((data) => {
+      console.log(data)
       if (data.user) {
+
         localStorage.setItem('jwt', data.jwt);
         return data;
       }
     })
     .catch(err => console.log(err))
 };
+
 export const checkToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',

@@ -193,6 +193,12 @@
     margin-bottom: 0;
 }
 
+.popup__register {
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 32px;
+}
+
 @media screen and (max-width: 540px) {
     .popup__form-card {
         padding: 25px 22px 25px 22px;

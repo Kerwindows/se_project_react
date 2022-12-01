@@ -22,12 +22,11 @@ const Login = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // if (!credentials.email || !credentials.password) {
-        //     return;
-        // }
+        if (!credentials.email || !credentials.password) {
+            return;
+        }
         auth.authorize(credentials.email, credentials.password)
             .then((data) => {
-                console.log(data)
                 if (data.jwt) {
                     setCredentials({ email: '', password: '' }, () => {
                         props.handleLogin();
@@ -45,7 +44,7 @@ const Login = (props) => {
             <form onSubmit={handleSubmit}>
                 <input className="login__email" type="email" name="email" placeholder='Email' onChange={handleChange} />
                 <input className="login__password" type="password" name="password" placeholder='Password' onChange={handleChange} />
-                <button className="login__button" >Log in</button>
+                <button className="login__button" type="submit">Log in</button>
             </form>
 
             <p className="login__signin">Not a member yet? <Link to="signup" className="login__signin-link" onClick={handleRoute}>Sign up here!</Link></p>
