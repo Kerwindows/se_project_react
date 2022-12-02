@@ -8,9 +8,6 @@ const Register = (props) => {
         email: '',
         password: ''
     })
-    const handleRoute = () => {
-        props.handleSignInSignUp('signin')
-    }
 
     const handleChange = (e) => {
         setCredentials(
@@ -21,18 +18,33 @@ const Register = (props) => {
         )
     }
 
+
+    const handleRoute = () => {
+        props.handleSignInSignUp('signin')
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!credentials.email || !credentials.password) {
+
+        const email = e.target[1].value
+        const password = e.target[0].value
+
+        if (!email || !password) {
             return;
         }
-        auth.register(credentials.email, credentials.password).then((res) => {
-            if (res) {
-                //props.history.push('/login');
+        auth.register(email, password).then((res) => {
+            if (res.error) {
+                console.log('res: ', res)
+                props.setStatus(false)
+                props.handleInfoTooltip(true)
             } else {
-                console.log('Something went wrong.');
-                props.handleInfoTooltip()
+                props.setStatus(true)
+                props.handleInfoTooltip(true)
             }
+            setCredentials({
+                email: '',
+                password: ''
+            })
         });
     }
 
@@ -40,9 +52,9 @@ const Register = (props) => {
     return (
         <div className="register">
             <h2 className="register__title"> Sign up</ h2>
-            <form onSubmit={handleSubmit}>
-                <input className="register__email" type="email" name="email" placeholder='Email' onChange={handleChange} />
-                <input className="register__password" type="password" name="password" placeholder='Password' onChange={handleChange} />
+            <form onSubmit={handleSubmit} name="Form">
+                <input className="register__email" type="email" name="email" placeholder='Email' onChange={handleChange} value={credentials.email} />
+                <input className="register__password" type="password" name="password" placeholder='Password' onChange={handleChange} value={credentials.password} />
                 <button className="register__button" type="submit" >Sign up</button>
             </form>
 

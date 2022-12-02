@@ -1,37 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as auth from '../utils/auth.js';
 
 const Login = (props) => {
-    const [credentials, setCredentials] = React.useState({
-        email: '',
-        password: ''
-    })
+    const history = useHistory()
 
     const handleRoute = () => {
         props.handleSignInSignUp('signup')
     }
-    const handleChange = (e) => {
-        setCredentials(
-            {
-                ...credentials,
-                [e.target.name]: e.target.value,
-            }
-        )
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!credentials.email || !credentials.password) {
+        const email = e.target[0].value
+        const password = e.target[1].value
+
+        if (!email || !password) {
+            console.log('please fill out form')
             return;
         }
-        auth.authorize(credentials.email, credentials.password)
+        auth.authorize(email, password)
             .then((data) => {
-                if (data.jwt) {
-                    setCredentials({ email: '', password: '' }, () => {
-                        props.handleLogin();
-                        //props.history.push('/');
-                    })
+                if (data.token) {
+                    props.handleLogin();
+                    props.handleEmail(email);
+                    history.push('/');
                 }
             })
             .catch(err => console.log(err));
@@ -42,8 +34,8 @@ const Login = (props) => {
         <div className="login">
             <h2 className="login__title"> Log in</ h2>
             <form onSubmit={handleSubmit}>
-                <input className="login__email" type="email" name="email" placeholder='Email' onChange={handleChange} />
-                <input className="login__password" type="password" name="password" placeholder='Password' onChange={handleChange} />
+                <input className="login__email" type="email" name="email" placeholder='Email' />
+                <input className="login__password" type="password" name="password" placeholder='Password' />
                 <button className="login__button" type="submit">Log in</button>
             </form>
 

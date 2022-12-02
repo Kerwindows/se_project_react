@@ -8,11 +8,11 @@ import unsuccessful from "../images/unsuccessful.svg";
 
 
 function InfoTooltip(props) {
-  const [status, setStatus] = React.useState(true)
+
   let regStatusImage = unsuccessful;
   let regStatusNotice = "Oops, something went wrong! Please try again.";
 
-  if (status) {
+  if (props.status === true) {
     regStatusImage = successful;
     regStatusNotice = "Success! You have now been registered.";
   }

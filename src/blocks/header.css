@@ -48,10 +48,12 @@
 .header__menu-button {
 	display: none;
 	width: 24px;
+	cursor: pointer;
 }
 
 .header__menu{
 	display:flex;
+	cursor: pointer;
 }
 
 .header__button {
@@ -64,8 +66,9 @@
 	font-style: normal;
 	font-weight: 400;
 	font-size: 18px;
+	text-align: center;
 	line-height: 22px;
-	color: #A9A9A9;
+	color: #A9A9A9;	
 }
 
 .header_menu-button-hide {

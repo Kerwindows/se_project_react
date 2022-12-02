@@ -20,20 +20,18 @@ export const register = (password, email) => {
 };
 
 export const authorize = (identifier, password) => {
-  console.log(identifier, password);
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
+      'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ password, identifier })
+    body: JSON.stringify({ password, email: identifier })
   })
     .then((response => response.json()))
     .then((data) => {
-      console.log(data)
-      if (data.user) {
-
-        localStorage.setItem('jwt', data.jwt);
+      if (data.token) {
+        localStorage.setItem('token', data.token);
         return data;
       }
     })
@@ -49,6 +47,8 @@ export const checkToken = (token) => {
       'Authorization': `Bearer ${token}`,
     }
   })
-    .then(res => res.json())
+    .then(res => {
+      res.json()
+    })
     .then(data => data)
 }
