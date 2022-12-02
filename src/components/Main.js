@@ -10,59 +10,59 @@ function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
   return (
     <>
-      <main className="main">
-        <section className="profile">
-          <div className="profile__image-container">
+      <main className='main'>
+        <section className='profile'>
+          <div className='profile__image-container'>
             <img
-              className="profile__image"
+              className='profile__image'
               src={currentUser.avatar || userAvatar}
-              alt="Person"
+              alt='Person'
             />
-            <div className="profile__image-edit">
+            <div className='profile__image-edit'>
               <button
                 onClick={props.onEditAvatarClick}
-                className="profile__image-edit-btn"
+                className='profile__image-edit-btn'
               >
                 <img
-                  className="profile__image-edit-icon"
+                  className='profile__image-edit-icon'
                   src={vector}
-                  alt="Edit icon"
+                  alt='Edit icon'
                 />
               </button>
             </div>
           </div>
-          <div className="profile__edit-column">
-            <div className="profile__edit">
-              <h1 className="profile__edit-name">{currentUser.name}</h1>
+          <div className='profile__edit-column'>
+            <div className='profile__edit'>
+              <h1 className='profile__edit-name'>{currentUser.name}</h1>
               <button
                 onClick={props.onEditProfileClick}
-                className="profile__edit-btn"
-                type="button"
+                className='profile__edit-btn'
+                type='button'
               >
                 <img
-                  className="profile__edit-icon"
+                  className='profile__edit-icon'
                   src={edit}
-                  alt="Edit button"
+                  alt='Edit button'
                 />
               </button>
             </div>
-            <p className="profile__about-me">{currentUser.about}</p>
+            <p className='profile__about-me'>{currentUser.about}</p>
           </div>
 
           <button
             onClick={props.onAddPlaceClick}
-            className="profile__add-places-btn"
-            type="button"
+            className='profile__add-places-btn'
+            type='button'
           >
             <img
-              className="profile__add-places-icon"
+              className='profile__add-places-icon'
               src={plusSign}
-              alt="Add place"
+              alt='Add place'
             />
           </button>
         </section>
-        <section className="cards">
-          <ul className="cards__list">
+        <section className='cards'>
+          <ul className='cards__list'>
             {props.cards.map((card) => (
               <Card
                 key={card._id}

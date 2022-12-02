@@ -7,15 +7,15 @@ import Login from "./Login";
 import Register from "./Register";
 import InfoTooltip from "./InfoTooltip";
 import Landingpage from "./Landingpage";
-import * as auth from '../utils/auth.js';
+import * as auth from "../utils/auth.js";
 import "../index.css";
 
 function App() {
-  const history = useHistory()
+  const history = useHistory();
   const [loggedIn, setLoggedIn] = useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
-  const [userEmail, setUserEmail] = React.useState('');
-  const [regStatus, setRegStatus] = React.useState(true)
+  const [userEmail, setUserEmail] = React.useState("");
+  const [regStatus, setRegStatus] = React.useState(true);
 
   function handleEmail(arg) {
     setUserEmail(arg);
@@ -29,23 +29,23 @@ function App() {
   }
 
   function handleLogin() {
-    setLoggedIn(true)
+    setLoggedIn(true);
   }
 
   function handleLogout() {
-    localStorage.removeItem('token')
-    setLoggedIn(false)
+    localStorage.removeItem("token");
+    setLoggedIn(false);
   }
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      const token = localStorage.getItem('token');
+    if (localStorage.getItem("token")) {
+      const token = localStorage.getItem("token");
 
       // we're checking the user's token
       auth.checkToken(token).then((res) => {
         if (res) {
           setLoggedIn(true);
-          setUserEmail(res.data.email)
-          history.push('/');
+          setUserEmail(res.data.email);
+          history.push("/");
         }
       });
     }
@@ -53,8 +53,7 @@ function App() {
 
   return (
     <>
-
-      <div className="page">
+      <div className='page'>
         <Header
           userEmail={userEmail}
           loggedIn={loggedIn}
@@ -63,34 +62,26 @@ function App() {
         />
       </div>
       <Switch>
-        <Route path="/signin">
-          <Login
-            handleEmail={handleEmail}
-            handleLogin={handleLogin}
-          />
+        <Route path='/signin'>
+          <Login handleEmail={handleEmail} handleLogin={handleLogin} />
         </Route>
-        <Route path="/signup">
+        <Route path='/signup'>
           <InfoTooltip
             regStatus={regStatus}
             isOpen={isInfoTooltipOpen}
-            onClose={closeInfoPopup} />
+            onClose={closeInfoPopup}
+          />
           <Register
             handleInfoTooltip={handleInfoTooltip}
             setRegStatus={setRegStatus}
           />
         </Route>
-        <Route path="/cards">
+        <Route path='/cards'>
           <Landingpage />
         </Route>
-        <ProtectedRoute path="/"
-          loggedIn={loggedIn}
-          component={Landingpage} />
-        <Route exact path="/">
-          {loggedIn ? (
-            <Redirect to="/" />
-          ) : (
-            <Redirect to="/signin" />
-          )}
+        <ProtectedRoute path='/' loggedIn={loggedIn} component={Landingpage} />
+        <Route exact path='/'>
+          {loggedIn ? <Redirect to='/' /> : <Redirect to='/signin' />}
         </Route>
       </Switch>
     </>

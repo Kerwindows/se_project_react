@@ -14,13 +14,13 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers
+      headers: this._headers,
     }).then((res) => this._handleResponse(res));
   }
 
   getUser() {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers
+      headers: this._headers,
     }).then((res) => this._handleResponse(res));
   }
 
@@ -30,8 +30,8 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({
         name: name,
-        about: description
-      })
+        about: description,
+      }),
     }).then((res) => this._handleResponse(res));
   }
 
@@ -41,29 +41,29 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({
         name: name,
-        link: link
-      })
+        link: link,
+      }),
     }).then((res) => this._handleResponse(res));
   }
 
   removeCardLike(id) {
     return fetch(`${this._baseUrl}/cards/likes/${id}`, {
       method: "DELETE",
-      headers: this._headers
+      headers: this._headers,
     }).then((res) => this._checkRes(res));
   }
 
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
-      headers: this._headers
+      headers: this._headers,
     }).then((res) => this._handleResponse(res));
   }
 
   toggleLike(id, isLiked) {
     return fetch(`${this._baseUrl}/cards/likes/${id}`, {
       method: isLiked ? "DELETE" : "PUT",
-      headers: this._headers
+      headers: this._headers,
     }).then((res) => this._handleResponse(res));
   }
   updateProfilePic({ avatar }) {
@@ -71,8 +71,8 @@ class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar
-      })
+        avatar,
+      }),
     }).then((res) => this._handleResponse(res));
   }
 }
@@ -81,8 +81,8 @@ const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-12",
   headers: {
     authorization: "388e1377-9ab5-4db7-9c4c-d98eb5bc0391",
-    "Content-Type": "application/json"
-  }
+    "Content-Type": "application/json",
+  },
 });
 
 export default api;

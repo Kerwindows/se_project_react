@@ -32,46 +32,46 @@ function EditProfilePopup(props) {
     // Pass the values of the managed components to the external handler
     props.onUpdateUser({
       name,
-      description
+      description,
     });
   }
 
   return (
     <PopupWithForm
-      name="edit"
-      title="Edit profile"
+      name='edit'
+      title='Edit profile'
       submitText={props.isLoading ? "Saving..." : "Save"}
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
     >
       <input
-        id="name-input"
-        minLength="2"
-        maxLength="40"
-        className="popup__form-input js-input-type-profile-name"
-        name="name"
-        type="text"
-        placeholder="Name"
+        id='name-input'
+        minLength='2'
+        maxLength='40'
+        className='popup__form-input js-input-type-profile-name'
+        name='name'
+        type='text'
+        placeholder='Name'
         onChange={handleNameChange}
         value={name || ""}
         required
       />
-      <span className="popup__input-type-error name-input-error"></span>
+      <span className='popup__input-type-error name-input-error'></span>
 
       <input
-        id="about-input"
-        minLength="2"
-        maxLength="200"
-        className="popup__form-input js-input-type-profile-about-me"
-        name="about"
-        type="text"
-        placeholder="About Me"
+        id='about-input'
+        minLength='2'
+        maxLength='200'
+        className='popup__form-input js-input-type-profile-about-me'
+        name='about'
+        type='text'
+        placeholder='About Me'
         onChange={handleDescChange}
         value={description || ""}
         required
       />
-      <span className="popup__input-type-error about-input-error"></span>
+      <span className='popup__input-type-error about-input-error'></span>
     </PopupWithForm>
   );
 }

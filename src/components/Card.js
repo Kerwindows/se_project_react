@@ -1,7 +1,7 @@
 /* --------------------------------- imports -------------------------------- */
 import React from "react";
 import trash from "../images/Trash.svg";
-import {CurrentUserContext} from '../contexts/CurrentUserContext';
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 /* ------------------------ function EditProfilePopup ----------------------- */
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
@@ -35,27 +35,35 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
     onCardDelete(card);
   }
 
-
   return (
-    <li className="card">
+    <li className='card'>
       <img
         onClick={handleClick}
-        className="card__image"
+        className='card__image'
         src={card.link}
         alt=''
       />
-      <button className={cardDeleteButtonClassName} onClick={handleCardDelete} aria-label="Delete card">
+      <button
+        className={cardDeleteButtonClassName}
+        onClick={handleCardDelete}
+        aria-label='Delete card'
+      >
         <img
-          className="card__trash-image"
+          className='card__trash-image'
           src={trash}
           alt={`Delete ${card.name}`}
         />
       </button>
-      <div className="card__place-title">
-        <h2 className="card__place-name">{card.name}</h2>
-        <div className="card__place-container">
-          <button onClick={handleLikeClick} type="button" className={cardLikeButtonClassName}  aria-label="Like this"></button>
-          <p className="card__place-num">{card.likes.length}</p>
+      <div className='card__place-title'>
+        <h2 className='card__place-name'>{card.name}</h2>
+        <div className='card__place-container'>
+          <button
+            onClick={handleLikeClick}
+            type='button'
+            className={cardLikeButtonClassName}
+            aria-label='Like this'
+          ></button>
+          <p className='card__place-num'>{card.likes.length}</p>
         </div>
       </div>
     </li>
