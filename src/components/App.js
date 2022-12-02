@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 //import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
-import { BrowserRouter as Router, Route, Switch, Redirect, useHistory } from "react-router-dom";
+import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import Header from "./Header";
 import Login from "./Login";
@@ -13,17 +13,12 @@ import "../index.css";
 function App() {
   const history = useHistory()
   const [loggedIn, setLoggedIn] = useState(false);
-  const [route, setRoute] = React.useState("signin");
   const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
-  const [email, setEmail] = React.useState('');
-  const [status, setStatus] = React.useState(true)
+  const [userEmail, setUserEmail] = React.useState('');
+  const [regStatus, setRegStatus] = React.useState(true)
 
-  function handleEmail(m) {
-    setEmail(m);
-  }
-
-  const handleSignInSignUp = (route) => {
-    setRoute(route)
+  function handleEmail(arg) {
+    setUserEmail(arg);
   }
 
   function handleInfoTooltip(x) {
@@ -32,7 +27,6 @@ function App() {
   function closeInfoPopup() {
     setInfoTooltipOpen(false);
   }
-
 
   function handleLogin() {
     setLoggedIn(true)
@@ -45,11 +39,12 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem('token')) {
       const token = localStorage.getItem('token');
-      console.log('token :', token);
+
       // we're checking the user's token
       auth.checkToken(token).then((res) => {
         if (res) {
           setLoggedIn(true);
+          setUserEmail(res.data.email)
           history.push('/');
         }
       });
@@ -58,50 +53,46 @@ function App() {
 
   return (
     <>
-      <Router>
-        <div className="page">
-          <Header
-            email={email}
-            handleSignInSignUp={handleSignInSignUp}
-            loggedIn={loggedIn}
-            handleLogout={handleLogout}
-            route={route} />
-        </div>
-        <Switch>
-          <Route path="/signin">
-            <Login
-              handleEmail={handleEmail}
-              handleSignInSignUp={handleSignInSignUp}
-              route={route}
-              handleLogin={handleLogin} />
-          </Route>
-          <Route path="/signup">
-            <InfoTooltip
-              status={status}
-              isOpen={isInfoTooltipOpen}
-              onClose={closeInfoPopup} />
-            <Register
-              handleSignInSignUp={handleSignInSignUp}
-              route={route}
-              handleInfoTooltip={handleInfoTooltip}
-              setStatus={setStatus} />
-          </Route>
-          <Route path="/cards">
-            <Landingpage />
-          </Route>
-          <ProtectedRoute path="/"
-            loggedIn={loggedIn}
-            component={Landingpage} />
-          <Route exact path="/">
-            {loggedIn ? (
-              <Redirect to="/" />
-            ) : (
-              <Redirect to="/signin" />
-            )}
-          </Route>
-        </Switch>
 
-      </Router>
+      <div className="page">
+        <Header
+          userEmail={userEmail}
+          loggedIn={loggedIn}
+          handleLogout={handleLogout}
+          setUserEmail={setUserEmail}
+        />
+      </div>
+      <Switch>
+        <Route path="/signin">
+          <Login
+            handleEmail={handleEmail}
+            handleLogin={handleLogin}
+          />
+        </Route>
+        <Route path="/signup">
+          <InfoTooltip
+            regStatus={regStatus}
+            isOpen={isInfoTooltipOpen}
+            onClose={closeInfoPopup} />
+          <Register
+            handleInfoTooltip={handleInfoTooltip}
+            setRegStatus={setRegStatus}
+          />
+        </Route>
+        <Route path="/cards">
+          <Landingpage />
+        </Route>
+        <ProtectedRoute path="/"
+          loggedIn={loggedIn}
+          component={Landingpage} />
+        <Route exact path="/">
+          {loggedIn ? (
+            <Redirect to="/" />
+          ) : (
+            <Redirect to="/signin" />
+          )}
+        </Route>
+      </Switch>
     </>
   );
 }

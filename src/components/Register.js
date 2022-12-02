@@ -19,9 +19,6 @@ const Register = (props) => {
     }
 
 
-    const handleRoute = () => {
-        props.handleSignInSignUp('signin')
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -35,10 +32,10 @@ const Register = (props) => {
         auth.register(email, password).then((res) => {
             if (res.error) {
                 console.log('res: ', res)
-                props.setStatus(false)
+                props.setRegStatus(false)
                 props.handleInfoTooltip(true)
             } else {
-                props.setStatus(true)
+                props.setRegStatus(true)
                 props.handleInfoTooltip(true)
             }
             setCredentials({
@@ -58,7 +55,7 @@ const Register = (props) => {
                 <button className="register__button" type="submit" >Sign up</button>
             </form>
 
-            <p className="register__signup" >Already a member?  <Link to="signin" className="register__signup-link" onClick={handleRoute}>Log in here!</Link></p>
+            <p className="register__signup" >Already a member?  <Link to="signin" className="register__signup-link" >Log in here!</Link></p>
         </div>
     )
 }

@@ -12,7 +12,7 @@ function InfoTooltip(props) {
   let regStatusImage = unsuccessful;
   let regStatusNotice = "Oops, something went wrong! Please try again.";
 
-  if (props.status === true) {
+  if (props.regStatus === true) {
     regStatusImage = successful;
     regStatusNotice = "Success! You have now been registered.";
   }

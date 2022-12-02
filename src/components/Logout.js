@@ -3,6 +3,7 @@ import React from 'react'
 const Logout = (props) => {
     const logout = () => {
         props.handleLogout();
+        props.setUserEmail('')
     }
 
     return (
