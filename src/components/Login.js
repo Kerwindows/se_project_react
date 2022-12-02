@@ -36,8 +36,8 @@ const Login = (props) => {
             <h2 className="login__title"> Log in</ h2>
             <form onSubmit={handleSubmit}>
                 <p className="login__error">{credentialCheck}</p>
-                <input className="login__email" type="email" name="email" placeholder='Email' />
-                <input className="login__password" type="password" name="password" placeholder='Password' />
+                <input className="login__email" type="email" name="email" placeholder='Email' autoComplete="on" />
+                <input className="login__password" type="password" name="password" placeholder='Password' autoComplete="on" />
                 <button className="login__button" type="submit">Log in</button>
             </form>
 

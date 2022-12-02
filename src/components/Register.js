@@ -50,8 +50,8 @@ const Register = (props) => {
         <div className="register">
             <h2 className="register__title"> Sign up</ h2>
             <form onSubmit={handleSubmit} name="Form">
-                <input className="register__email" type="email" name="email" placeholder='Email' onChange={handleChange} value={credentials.email} />
-                <input className="register__password" type="password" name="password" placeholder='Password' onChange={handleChange} value={credentials.password} />
+                <input className="register__email" type="email" name="email" placeholder='Email' onChange={handleChange} value={credentials.email} autoComplete="on" />
+                <input className="register__password" type="password" name="password" placeholder='Password' onChange={handleChange} value={credentials.password} autoComplete="on" />
                 <button className="register__button" type="submit" >Sign up</button>
             </form>
 
