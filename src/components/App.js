@@ -74,9 +74,6 @@ function App() {
             setRegStatus={setRegStatus}
           />
         </Route>
-        <Route path='/cards'>
-          <Landingpage />
-        </Route>
         <ProtectedRoute path='/' loggedIn={loggedIn} component={Landingpage} />
         <Route exact path='/'>
           {loggedIn ? <Redirect to='/' /> : <Redirect to='/signin' />}
