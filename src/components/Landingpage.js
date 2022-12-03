@@ -176,17 +176,19 @@ function App() {
   return (
     <>
       <CurrentUserContext.Provider value={currentUser}>
-        <Main
-          cards={cards}
-          onCardLike={handleCardLike}
-          onEditProfileClick={handleEditProfileClick}
-          onAddPlaceClick={handleAddPlaceClick}
-          onEditAvatarClick={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          deleteConfirmation={handleDeleteConfirmation}
-          getCardToDelete={getCardToDelete}
-        />
-        <Footer />
+        <div className='page'>
+          <Main
+            cards={cards}
+            onCardLike={handleCardLike}
+            onEditProfileClick={handleEditProfileClick}
+            onAddPlaceClick={handleAddPlaceClick}
+            onEditAvatarClick={handleEditAvatarClick}
+            onCardClick={handleCardClick}
+            deleteConfirmation={handleDeleteConfirmation}
+            getCardToDelete={getCardToDelete}
+          />
+          <Footer />
+        </div>
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}

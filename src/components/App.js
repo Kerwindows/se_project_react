@@ -53,41 +53,35 @@ function App() {
 
   return (
     <>
-      <div className='page'>
-        <Header
-          userEmail={userEmail}
-          loggedIn={loggedIn}
-          handleLogout={handleLogout}
-          setUserEmail={setUserEmail}
-        />
-        <Switch>
-          <Route path='/signin'>
-            <Login handleEmail={handleEmail} handleLogin={handleLogin} />
-          </Route>
-          <Route path='/signup'>
-            <InfoTooltip
-              regStatus={regStatus}
-              isOpen={isInfoTooltipOpen}
-              onClose={closeInfoPopup}
-            />
-            <Register
-              handleInfoTooltip={handleInfoTooltip}
-              setRegStatus={setRegStatus}
-            />
-          </Route>
-          <Route path='/cards'>
-            <Landingpage />
-          </Route>
-          <ProtectedRoute
-            path='/'
-            loggedIn={loggedIn}
-            component={Landingpage}
+      <Header
+        userEmail={userEmail}
+        loggedIn={loggedIn}
+        handleLogout={handleLogout}
+        setUserEmail={setUserEmail}
+      />
+      <Switch>
+        <Route path='/signin'>
+          <Login handleEmail={handleEmail} handleLogin={handleLogin} />
+        </Route>
+        <Route path='/signup'>
+          <InfoTooltip
+            regStatus={regStatus}
+            isOpen={isInfoTooltipOpen}
+            onClose={closeInfoPopup}
           />
-          <Route exact path='/'>
-            {loggedIn ? <Redirect to='/' /> : <Redirect to='/signin' />}
-          </Route>
-        </Switch>
-      </div>
+          <Register
+            handleInfoTooltip={handleInfoTooltip}
+            setRegStatus={setRegStatus}
+          />
+        </Route>
+        <Route path='/cards'>
+          <Landingpage />
+        </Route>
+        <ProtectedRoute path='/' loggedIn={loggedIn} component={Landingpage} />
+        <Route exact path='/'>
+          {loggedIn ? <Redirect to='/' /> : <Redirect to='/signin' />}
+        </Route>
+      </Switch>
     </>
   );
 }
