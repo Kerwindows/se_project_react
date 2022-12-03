@@ -1,17 +1,25 @@
 /* --------------------------------- imports -------------------------------- */
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
+import { useForm } from "react-hook-form";
 
 /* ------------------------ function EditProfilePopup ----------------------- */
 
 function EditAvatarPopup(props) {
   const avatarRef = React.useRef(null);
-  function handleSubmit(e) {
-    e.preventDefault();
-    props.onUpdateAvatar({
-      avatar: avatarRef.current.value,
-    });
+
+  function handleSubmitPost(validatedData, e) {
+    props.onUpdateAvatar(validatedData);
+    e.target.reset();
+    reset({});
   }
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   return (
     <PopupWithForm
@@ -20,17 +28,25 @@ function EditAvatarPopup(props) {
       submitText={props.isLoading ? "Saving..." : "Save"}
       isOpen={props.isOpen}
       onClose={props.onClose}
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(handleSubmitPost)}
     >
       <input
         ref={avatarRef}
         id='js-input-edit-profile-pic-input'
         className='popup__form-input js-input-type-edit-profile-pic'
-        name='avatar'
-        type='url'
+        type='text'
         placeholder='Url Link'
-        required
+        {...register("avatar", {
+          required: "Image url is required",
+          pattern: {
+            value: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+/,
+            message: "Please enter a valid url",
+          },
+        })}
       />
+      <span className='popup__input-type-error js-input-place-url-input-error'>
+        {errors.avatar && <p style={{ margin: 0 }}>{errors.avatar.message}</p>}
+      </span>
     </PopupWithForm>
   );
 }
