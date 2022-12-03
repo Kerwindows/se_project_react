@@ -60,30 +60,34 @@ function App() {
           handleLogout={handleLogout}
           setUserEmail={setUserEmail}
         />
+        <Switch>
+          <Route path='/signin'>
+            <Login handleEmail={handleEmail} handleLogin={handleLogin} />
+          </Route>
+          <Route path='/signup'>
+            <InfoTooltip
+              regStatus={regStatus}
+              isOpen={isInfoTooltipOpen}
+              onClose={closeInfoPopup}
+            />
+            <Register
+              handleInfoTooltip={handleInfoTooltip}
+              setRegStatus={setRegStatus}
+            />
+          </Route>
+          <Route path='/cards'>
+            <Landingpage />
+          </Route>
+          <ProtectedRoute
+            path='/'
+            loggedIn={loggedIn}
+            component={Landingpage}
+          />
+          <Route exact path='/'>
+            {loggedIn ? <Redirect to='/' /> : <Redirect to='/signin' />}
+          </Route>
+        </Switch>
       </div>
-      <Switch>
-        <Route path='/signin'>
-          <Login handleEmail={handleEmail} handleLogin={handleLogin} />
-        </Route>
-        <Route path='/signup'>
-          <InfoTooltip
-            regStatus={regStatus}
-            isOpen={isInfoTooltipOpen}
-            onClose={closeInfoPopup}
-          />
-          <Register
-            handleInfoTooltip={handleInfoTooltip}
-            setRegStatus={setRegStatus}
-          />
-        </Route>
-        <Route path='/cards'>
-          <Landingpage />
-        </Route>
-        <ProtectedRoute path='/' loggedIn={loggedIn} component={Landingpage} />
-        <Route exact path='/'>
-          {loggedIn ? <Redirect to='/' /> : <Redirect to='/signin' />}
-        </Route>
-      </Switch>
     </>
   );
 }
