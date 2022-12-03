@@ -35,7 +35,7 @@ function EditAvatarPopup(props) {
         id='js-input-edit-profile-pic-input'
         className='popup__form-input js-input-type-edit-profile-pic'
         type='text'
-        placeholder='Url Link'
+        placeholder='Image url Link'
         {...register("avatar", {
           required: "Image url is required",
           pattern: {

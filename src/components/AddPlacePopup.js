@@ -52,9 +52,9 @@ function AddPlacePopup(props) {
         id='js-input-place-url-input'
         className='popup__form-input js-input-type-place-url'
         type='text'
-        placeholder='Url Link'
+        placeholder='Image url'
         {...register("link", {
-          required: "Url is required",
+          required: "Image url is required",
           pattern: {
             value: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+/,
             message: "Please enter a valid url",
