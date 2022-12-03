@@ -39,6 +39,7 @@ function EditAvatarPopup(props) {
         {...register("avatar", {
           required: "Image url is required",
           pattern: {
+            //eslint-disable-next-line
             value: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+/,
             message: "Please enter a valid url",
           },

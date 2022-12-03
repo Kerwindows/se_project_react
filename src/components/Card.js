@@ -4,7 +4,14 @@ import trash from "../images/Trash.svg";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 /* ------------------------ function EditProfilePopup ----------------------- */
-function Card({ card, onCardClick, onCardLike, onCardDelete }) {
+function Card({
+  card,
+  onCardClick,
+  onCardLike,
+  onCardDelete,
+  deleteConfirmation,
+  getCardToDelete,
+}) {
   const currentUser = React.useContext(CurrentUserContext);
 
   // Checking if the current user is the owner of the current card
@@ -31,8 +38,10 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
     onCardLike(card);
   }
 
-  function handleCardDelete() {
-    onCardDelete(card);
+  function handleCardDelete(e) {
+    e.preventDefault();
+    deleteConfirmation(true);
+    getCardToDelete(card);
   }
 
   return (
