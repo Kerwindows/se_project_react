@@ -2,37 +2,33 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { useForm } from "react-hook-form";
 
 /* ------------------------ function EditProfilePopup ----------------------- */
 
 function EditProfilePopup(props) {
   // Subscription to the context
   const currentUser = React.useContext(CurrentUserContext);
-  // input state variables
-  const [name, setName] = React.useState("");
-  const [description, setDescription] = React.useState("");
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
+    let defaultValues = {};
+    defaultValues.name = currentUser.name;
+    defaultValues.about = currentUser.about;
+    reset({ ...defaultValues });
   }, [currentUser, props.isOpen]);
 
-  function handleNameChange(evt) {
-    setName(evt.target.value);
-  }
-
-  function handleDescChange(evt) {
-    setDescription(evt.target.value);
-  }
-
-  function handleSubmit(evt) {
-    // Prevent the browser from navigating to the form address
-    evt.preventDefault();
-
+  function handleSubmitPost(validatedData) {
     // Pass the values of the managed components to the external handler
     props.onUpdateUser({
-      name,
-      description,
+      name: validatedData.name,
+      description: validatedData.about,
     });
   }
 
@@ -43,35 +39,49 @@ function EditProfilePopup(props) {
       submitText={props.isLoading ? "Saving..." : "Save"}
       isOpen={props.isOpen}
       onClose={props.onClose}
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(handleSubmitPost)}
     >
       <input
         id='name-input'
-        minLength='2'
-        maxLength='40'
         className='popup__form-input js-input-type-profile-name'
-        name='name'
         type='text'
         placeholder='Name'
-        onChange={handleNameChange}
-        value={name || ""}
-        required
+        {...register("name", {
+          required: "A name is required",
+          minLength: {
+            value: 2,
+            message: "Name must be at least 2 characters",
+          },
+          maxLength: {
+            value: 40,
+            message: "Name cannot be more than 40 characters",
+          },
+        })}
       />
-      <span className='popup__input-type-error name-input-error'></span>
+      <span className='popup__input-type-error name-input-error'>
+        {errors.name && <p style={{ margin: 0 }}>{errors.name.message}</p>}
+      </span>
 
       <input
         id='about-input'
-        minLength='2'
-        maxLength='200'
         className='popup__form-input js-input-type-profile-about-me'
-        name='about'
         type='text'
         placeholder='About Me'
-        onChange={handleDescChange}
-        value={description || ""}
-        required
+        {...register("about", {
+          required: "A description is required",
+          minLength: {
+            value: 2,
+            message: "Description must be at least 2 characters",
+          },
+          maxLength: {
+            value: 30,
+            message: "Description cannot be more than 30 characters",
+          },
+        })}
       />
-      <span className='popup__input-type-error about-input-error'></span>
+      <span className='popup__input-type-error about-input-error'>
+        {errors.about && <p style={{ margin: 0 }}>{errors.about.message}</p>}
+      </span>
     </PopupWithForm>
   );
 }
