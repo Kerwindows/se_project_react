@@ -42,6 +42,9 @@
   font-size: 18px;
   line-height: 22px;
   color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .header__menu-button {
@@ -52,6 +55,8 @@
 
 .header__menu {
   display: flex;
+  overflow: hidden;
+  margin-left: 20px;
 }
 
 .header__button {
