@@ -1,7 +1,7 @@
 export const BASE_URL = "https://register.nomoreparties.co";
 
-export const register = (password, email) => {
-  return fetch(`${BASE_URL}/signup`, {
+export const register = (password, email) =>
+  fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -17,10 +17,9 @@ export const register = (password, email) => {
       return res;
     })
     .catch((err) => console.log(err));
-};
 
-export const authorize = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
+export const authorize = (email, password) =>
+  fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -36,10 +35,9 @@ export const authorize = (email, password) => {
       }
     })
     .catch((err) => console.log(err));
-};
 
-export const checkToken = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+export const checkToken = (token) =>
+  fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -49,4 +47,3 @@ export const checkToken = (token) => {
   })
     .then((res) => res.json())
     .then((data) => data);
-};
