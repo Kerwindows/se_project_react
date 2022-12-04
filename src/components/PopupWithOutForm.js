@@ -3,29 +3,36 @@ import React from "react";
 import closeIcon from "../images/close-icon.svg";
 
 /* ------------------------- function PopupWIthOutForm ------------------------- */
-function PopupWithOutForm(props) {
+function PopupWithOutForm({
+  name,
+  isOpen,
+  onClose,
+  onSubmit,
+  children,
+  title,
+}) {
   return (
-    <div id={props.name} className={`popup ${props.isOpen && "popup_opened"}`}>
+    <div id={name} className={`popup ${isOpen && "popup_opened"}`}>
       <div className='popup__overlay'></div>
       <div className='popup__form-card'>
         <button
-          onClick={props.onClose}
+          onClick={onClose}
           aria-label='Close Form Button'
           type='button'
-          className={`popup__close-btn popup__${props.name}-close-btn`}
+          className={`popup__close-btn popup__${name}-close-btn`}
         >
           <img className='popup__close-icon' src={closeIcon} alt='close' />
         </button>
         <div
-          id={props.name}
-          onSubmit={props.onSubmit}
-          className={`popup__${props.name}-form popup__form`}
-          name={`${props.name}Form`}
+          id={name}
+          onSubmit={onSubmit}
+          className={`popup__${name}-form popup__form`}
+          name={`${name}Form`}
         >
           {" "}
-          {props.children}
+          {children}
           <h2 className='popup__form-label' style={{ textAlign: "center" }}>
-            {props.title}
+            {title}
           </h2>
         </div>
       </div>

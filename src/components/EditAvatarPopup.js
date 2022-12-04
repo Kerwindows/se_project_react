@@ -5,11 +5,11 @@ import { useForm } from "react-hook-form";
 
 /* ------------------------ function EditProfilePopup ----------------------- */
 
-function EditAvatarPopup(props) {
+function EditAvatarPopup({ onUpdateAvatar, isLoading, isOpen, onClose }) {
   const avatarRef = React.useRef(null);
 
   function handleSubmitPost(validatedData, e) {
-    props.onUpdateAvatar(validatedData);
+    onUpdateAvatar(validatedData);
     e.target.reset();
     reset({});
   }
@@ -25,9 +25,9 @@ function EditAvatarPopup(props) {
     <PopupWithForm
       name='edit-profile-pic'
       title='Change profile picture'
-      submitText={props.isLoading ? "Saving..." : "Save"}
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      submitText={isLoading ? "Saving..." : "Save"}
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit(handleSubmitPost)}
     >
       <input

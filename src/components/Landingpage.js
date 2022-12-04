@@ -10,7 +10,7 @@ import ImagePopup from "./ImagePopup";
 import PopupWithConfirmation from "./PopupWithConfirmation";
 import "../index.css";
 
-function App() {
+function Landingpage() {
   const [currentUser, setCurrentUser] = React.useState("");
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(
     false
@@ -79,8 +79,6 @@ function App() {
       .setUserInfo(info)
       .then((res) => {
         setCurrentUser(res);
-      })
-      .then(() => {
         closeAllPopups();
       })
       .catch((err) => {
@@ -97,8 +95,6 @@ function App() {
       .updateProfilePic(data)
       .then((res) => {
         setCurrentUser(res);
-      })
-      .then(() => {
         closeAllPopups();
       })
       .catch((err) => {
@@ -220,4 +216,4 @@ function App() {
   );
 }
 
-export default App;
+export default Landingpage;

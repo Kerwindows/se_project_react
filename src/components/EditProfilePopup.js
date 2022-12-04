@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 
 /* ------------------------ function EditProfilePopup ----------------------- */
 
-function EditProfilePopup(props) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
   // Subscription to the context
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -22,11 +22,11 @@ function EditProfilePopup(props) {
     defaultValues.name = currentUser.name;
     defaultValues.about = currentUser.about;
     reset({ ...defaultValues });
-  }, [currentUser, props.isOpen]);
+  }, [currentUser, isOpen]);
 
   function handleSubmitPost(validatedData) {
     // Pass the values of the managed components to the external handler
-    props.onUpdateUser({
+    onUpdateUser({
       name: validatedData.name,
       description: validatedData.about,
     });
@@ -36,9 +36,9 @@ function EditProfilePopup(props) {
     <PopupWithForm
       name='edit'
       title='Edit profile'
-      submitText={props.isLoading ? "Saving..." : "Save"}
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      submitText={isLoading ? "Saving..." : "Save"}
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit(handleSubmitPost)}
     >
       <input

@@ -6,7 +6,16 @@ import plusSign from "../images/plus-sign.svg";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Main(props) {
+function Main({
+  onEditAvatarClick,
+  onEditProfileClick,
+  onAddPlaceClick,
+  cards,
+  onCardClick,
+  onCardLike,
+  deleteConfirmation,
+  getCardToDelete,
+}) {
   const currentUser = React.useContext(CurrentUserContext);
   return (
     <>
@@ -20,7 +29,7 @@ function Main(props) {
             />
             <div className='profile__image-edit'>
               <button
-                onClick={props.onEditAvatarClick}
+                onClick={onEditAvatarClick}
                 className='profile__image-edit-btn'
               >
                 <img
@@ -35,7 +44,7 @@ function Main(props) {
             <div className='profile__edit'>
               <h1 className='profile__edit-name'>{currentUser.name}</h1>
               <button
-                onClick={props.onEditProfileClick}
+                onClick={onEditProfileClick}
                 className='profile__edit-btn'
                 type='button'
               >
@@ -50,7 +59,7 @@ function Main(props) {
           </div>
 
           <button
-            onClick={props.onAddPlaceClick}
+            onClick={onAddPlaceClick}
             className='profile__add-places-btn'
             type='button'
           >
@@ -63,14 +72,14 @@ function Main(props) {
         </section>
         <section className='cards'>
           <ul className='cards__list'>
-            {props.cards.map((card) => (
+            {cards.map((card) => (
               <Card
                 key={card._id}
                 card={card}
-                onCardClick={props.onCardClick}
-                onCardLike={props.onCardLike}
-                deleteConfirmation={props.deleteConfirmation}
-                getCardToDelete={props.getCardToDelete}
+                onCardClick={onCardClick}
+                onCardLike={onCardLike}
+                deleteConfirmation={deleteConfirmation}
+                getCardToDelete={getCardToDelete}
               />
             ))}
           </ul>

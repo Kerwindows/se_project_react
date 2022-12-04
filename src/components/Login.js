@@ -2,7 +2,12 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as auth from "../utils/auth.js";
 
-const Login = (props) => {
+const Login = ({
+  handleLogin,
+  handleEmail,
+  setRegStatus,
+  handleInfoTooltip,
+}) => {
   const history = useHistory();
   const [credentialCheck, setCredentialCheck] = React.useState("");
 
@@ -20,12 +25,16 @@ const Login = (props) => {
       .then((data) => {
         if (data.token) {
           setCredentialCheck("");
-          props.handleLogin();
-          props.handleEmail(email);
+          handleLogin();
+          handleEmail(email);
           history.push("/");
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setRegStatus(false);
+        handleInfoTooltip(true);
+        console.log(`{'error'}`);
+      });
   };
 
   return (

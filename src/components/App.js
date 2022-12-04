@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-//import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import Header from "./Header";
@@ -17,12 +16,12 @@ function App() {
   const [userEmail, setUserEmail] = React.useState("");
   const [regStatus, setRegStatus] = React.useState(true);
 
-  function handleEmail(arg) {
-    setUserEmail(arg);
+  function handleEmail(authStatus) {
+    setUserEmail(authStatus);
   }
 
-  function handleInfoTooltip(x) {
-    setInfoTooltipOpen(x);
+  function handleInfoTooltip(authStatus) {
+    setInfoTooltipOpen(authStatus);
   }
   function closeInfoPopup() {
     setInfoTooltipOpen(false);
@@ -40,14 +39,17 @@ function App() {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
 
-      // we're checking the user's token
-      auth.checkToken(token).then((res) => {
-        if (res) {
-          setLoggedIn(true);
-          setUserEmail(res.data.email);
-          history.push("/");
-        }
-      });
+      // Checking the user's token
+      auth
+        .checkToken(token)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setUserEmail(res.data.email);
+            history.push("/");
+          }
+        })
+        .catch((err) => console.log(`{'Something went wrong'}`));
     }
   }, []);
 
@@ -61,15 +63,17 @@ function App() {
       />
       <Switch>
         <Route path='/signin'>
-          <Login handleEmail={handleEmail} handleLogin={handleLogin} />
+          <Login
+            handleEmail={handleEmail}
+            handleLogin={handleLogin}
+            handleInfoTooltip={handleInfoTooltip}
+            setRegStatus={setRegStatus}
+          />
         </Route>
         <Route path='/signup'>
-          <InfoTooltip
-            regStatus={regStatus}
-            isOpen={isInfoTooltipOpen}
-            onClose={closeInfoPopup}
-          />
           <Register
+            handleEmail={handleEmail}
+            handleLogin={handleLogin}
             handleInfoTooltip={handleInfoTooltip}
             setRegStatus={setRegStatus}
           />
@@ -79,6 +83,11 @@ function App() {
           {loggedIn ? <Redirect to='/' /> : <Redirect to='/signin' />}
         </Route>
       </Switch>
+      <InfoTooltip
+        regStatus={regStatus}
+        isOpen={isInfoTooltipOpen}
+        onClose={closeInfoPopup}
+      />
     </>
   );
 }

@@ -5,7 +5,7 @@ import close from "../images/close-icon.svg";
 import React from "react";
 import Logout from "./Logout";
 
-function Header(props) {
+function Header({ userEmail, loggedIn, handleLogout, setUserEmail }) {
   const location = useLocation();
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -28,14 +28,9 @@ function Header(props) {
           />
         </div>
         <div className={`header__menu ${isMenuOpen && "header_menu-open"}`}>
-          <p className={`header__email ${!props.userEmail && "hide"}`}>
-            {props.userEmail}
-          </p>
-          {props.loggedIn ? (
-            <Logout
-              handleLogout={props.handleLogout}
-              setUserEmail={props.setUserEmail}
-            />
+          <p className={`header__email ${!userEmail && "hide"}`}>{userEmail}</p>
+          {loggedIn ? (
+            <Logout handleLogout={handleLogout} setUserEmail={setUserEmail} />
           ) : (
             <Link
               to={location.pathname === "/signin" ? "signup" : "signin"}

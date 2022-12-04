@@ -18,7 +18,7 @@
 }
 
 .card__place-title {
-	margin: 25px 15px 31px 21px;
+	margin: 20px 15px 17px 21px;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -39,6 +39,7 @@
 	color: #000;
 	font-size: 24px;
 	font-weight: 900;
+	line-height: 1.2;
 	text-align: left;
 }
 
@@ -97,9 +98,8 @@
 	font-size: 13px;
     line-height: 1.7;
     text-align: center;
-    background-color: #e1516a;
     border-radius: 50px;
-    color: #fff;
+    color: #000;
 }
 
 @media screen and (max-width:778px) {

@@ -6,11 +6,11 @@ import unsuccessful from "../images/unsuccessful.svg";
 
 /* ------------------------ function EditProfilePopup ----------------------- */
 
-function InfoTooltip(props) {
+function InfoTooltip({ regStatus, isOpen, onClose }) {
   let regStatusImage = unsuccessful;
   let regStatusNotice = "Oops, something went wrong! Please try again.";
 
-  if (props.regStatus === true) {
+  if (regStatus === true) {
     regStatusImage = successful;
     regStatusNotice = "Success! You have now been registered.";
   }
@@ -19,8 +19,8 @@ function InfoTooltip(props) {
     <PopupWithOutForm
       name='registration-status'
       title={regStatusNotice}
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
     >
       <img
         className='popup__register'

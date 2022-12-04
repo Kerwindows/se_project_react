@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 /* ------------------------ function EditProfilePopup ----------------------- */
 
-function AddPlacePopup(props) {
+function AddPlacePopup({ onAddPlaceSubmit, isLoading, isOpen, onClose }) {
   const {
     register,
     handleSubmit,
@@ -14,7 +14,7 @@ function AddPlacePopup(props) {
   } = useForm();
 
   function handleSubmitPost(validatedData, e) {
-    props.onAddPlaceSubmit(validatedData);
+    onAddPlaceSubmit(validatedData);
     e.target.reset();
     reset({});
   }
@@ -23,9 +23,9 @@ function AddPlacePopup(props) {
     <PopupWithForm
       name='add-place'
       title='Add Place'
-      submitText={props.isLoading ? "Saving..." : "Create"}
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      submitText={isLoading ? "Saving..." : "Create"}
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit(handleSubmitPost)}
     >
       <input
