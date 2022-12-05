@@ -79,13 +79,13 @@ function Landingpage() {
       .setUserInfo(info)
       .then((res) => {
         setCurrentUser(res);
-        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         setIsLoading(false);
+        closeAllPopups();
       });
   }
 
@@ -95,13 +95,13 @@ function Landingpage() {
       .updateProfilePic(data)
       .then((res) => {
         setCurrentUser(res);
-        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         setIsLoading(false);
+        closeAllPopups();
       });
   }
   function getCardToDelete(card) {
@@ -119,12 +119,10 @@ function Landingpage() {
       .catch((err) => {
         console.log(err);
       })
-      .then(() => {
-        closeAllPopups();
-      })
       .finally(() => {
         setIsLoading(false);
         setCardToDelete("");
+        closeAllPopups();
       });
   }
 
@@ -138,11 +136,9 @@ function Landingpage() {
       .catch((err) => {
         console.log(err);
       })
-      .then(() => {
-        closeAllPopups();
-      })
       .finally(() => {
         setIsLoading(false);
+        closeAllPopups();
       });
   }
 

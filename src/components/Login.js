@@ -24,6 +24,7 @@ const Login = ({
       .authorize(email, password)
       .then((data) => {
         if (data.token) {
+          localStorage.setItem("token", data.token);
           setCredentialCheck("");
           handleLogin();
           handleEmail(email);

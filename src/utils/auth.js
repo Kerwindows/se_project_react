@@ -27,13 +27,8 @@ export const authorize = (email, password) =>
     },
     body: JSON.stringify({ email, password }),
   })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        return data;
-      }
-    })
+    .then((response) => checkResponse(response))
+    .then((data) => data)
     .catch((err) => console.log(err));
 
 export const checkToken = (token) =>
@@ -46,4 +41,8 @@ export const checkToken = (token) =>
     },
   })
     .then((res) => res.json())
-    .then((data) => data);
+    .then((data) => data)
+    .catch((err) => console.log(err));
+
+const checkResponse = (res) =>
+  res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
