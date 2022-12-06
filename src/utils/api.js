@@ -46,6 +46,13 @@ class Api {
     }).then((res) => this._handleResponse(res));
   }
 
+  // removeCardLike(id) {
+  //   return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+  //     method: "DELETE",
+  //     headers: this._headers,
+  //   }).then((res) => this._checkRes(res));
+  // }
+
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",

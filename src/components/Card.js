@@ -8,7 +8,6 @@ function Card({
   card,
   onCardClick,
   onCardLike,
-  onCardDelete,
   deleteConfirmation,
   getCardToDelete,
 }) {

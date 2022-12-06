@@ -53,6 +53,9 @@ function Landingpage() {
     setDeleteConfirmationPopupOpen(false);
     setSelectedCard(null);
   }
+  function getCardToDelete(card) {
+    setCardToDelete(card);
+  }
 
   function handleCardLike(card) {
     // Check one more time if this card was already liked
@@ -104,9 +107,7 @@ function Landingpage() {
         closeAllPopups();
       });
   }
-  function getCardToDelete(card) {
-    setCardToDelete(card);
-  }
+
   function handleCardDelete(card) {
     setIsLoading(true);
     api
