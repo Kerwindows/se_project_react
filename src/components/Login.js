@@ -34,7 +34,7 @@ const Login = ({
       .catch((err) => {
         setRegStatus(false);
         handleInfoTooltip(true);
-        console.log(`{'error'}`);
+        console.log(err);
       });
   };
 

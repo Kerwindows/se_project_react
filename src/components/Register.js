@@ -28,7 +28,6 @@ const Register = ({ setRegStatus, handleInfoTooltip }) => {
     }
 
     auth.register(password, email).then((res) => {
-      console.log("res: ", res);
       if (res.error) {
         setRegStatus(false);
         handleInfoTooltip(true);
@@ -37,7 +36,6 @@ const Register = ({ setRegStatus, handleInfoTooltip }) => {
         handleInfoTooltip(true);
         history.push("/");
       }
-
       setCredentials({
         email: "",
         password: "",

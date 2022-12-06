@@ -9,14 +9,7 @@ export const register = (password, identifier) =>
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ password, email: identifier }),
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => console.log(err));
+  }).then((response) => response.json());
 
 export const authorize = (email, password) =>
   fetch(`${BASE_URL}/signin`, {
@@ -26,10 +19,7 @@ export const authorize = (email, password) =>
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  })
-    .then((response) => checkResponse(response))
-    .then((data) => data)
-    .catch((err) => console.log(err));
+  }).then((data) => checkResponse(data));
 
 export const checkToken = (token) =>
   fetch(`${BASE_URL}/users/me`, {
@@ -39,10 +29,7 @@ export const checkToken = (token) =>
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-  })
-    .then((res) => res.json())
-    .then((data) => data)
-    .catch((err) => console.log(err));
+  }).then((res) => res.json());
 
 const checkResponse = (res) =>
   res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
