@@ -9,7 +9,7 @@ export const register = (password, identifier) =>
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ password, email: identifier }),
-  }).then((response) => response.json());
+  }).then((data) => checkResponse(data));
 
 export const authorize = (email, password) =>
   fetch(`${BASE_URL}/signin`, {
@@ -29,7 +29,7 @@ export const checkToken = (token) =>
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-  }).then((res) => res.json());
+  }).then((data) => checkResponse(data));
 
 const checkResponse = (res) =>
   res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
