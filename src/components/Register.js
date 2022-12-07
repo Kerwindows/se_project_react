@@ -27,20 +27,22 @@ const Register = ({ setRegStatus, handleInfoTooltip }) => {
       return;
     }
 
-    auth.register(password, email).then((res) => {
-      if (res.error) {
-        setRegStatus(false);
-        handleInfoTooltip(true);
-      } else {
+    auth
+      .register(password, email)
+      .then((res) => {
         setRegStatus(true);
         handleInfoTooltip(true);
         history.push("/");
-      }
-      setCredentials({
-        email: "",
-        password: "",
+        setCredentials({
+          email: "",
+          password: "",
+        });
+      })
+      .catch((err) => {
+        setRegStatus(false);
+        handleInfoTooltip(true);
+        console.log(err);
       });
-    });
   };
 
   return (
