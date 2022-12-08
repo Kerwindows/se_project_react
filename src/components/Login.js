@@ -1,54 +1,49 @@
-import React from "react";
-import { Link, useHistory } from "react-router-dom";
-import * as auth from "../utils/auth.js";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-const Login = ({
-  handleLogin,
-  handleEmail,
-  setRegStatus,
-  handleInfoTooltip,
-}) => {
-  const history = useHistory();
-  const [credentialCheck, setCredentialCheck] = React.useState("");
+const Login = ({ loginRequest }) => {
+  const [loginCredentialCheck, setLoginCredentialCheck] = useState("");
+  const [credentials, setCredentials] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setCredentials({
+      ...credentials,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const email = e.target[0].value;
-    const password = e.target[1].value;
-
+    const email = credentials.email;
+    const password = credentials.password;
     if (!email || !password) {
-      setCredentialCheck("All fields are required");
+      setLoginCredentialCheck("All fields are required");
       return;
     }
-    auth
-      .authorize(email, password)
-      .then((data) => {
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-          setCredentialCheck("");
-          handleLogin();
-          handleEmail(email);
-          history.push("/");
-        }
-      })
-      .catch((err) => {
-        setRegStatus(false);
-        handleInfoTooltip(true);
-        console.log(err);
-      });
+    loginRequest(email, password);
+    setLoginCredentialCheck("");
+    setCredentials({
+      email: "",
+      password: "",
+    });
   };
 
   return (
     <div className='login'>
       <h2 className='login__title'> Log in</h2>
       <form onSubmit={handleSubmit}>
-        <p className='login__error'>{credentialCheck}</p>
+        <p className='login__error'>{loginCredentialCheck}</p>
         <input
           className='login__email'
           type='email'
           name='email'
           placeholder='Email'
           autoComplete='on'
+          onChange={handleChange}
+          value={credentials.email}
         />
         <input
           className='login__password'
@@ -56,6 +51,8 @@ const Login = ({
           name='password'
           placeholder='Password'
           autoComplete='on'
+          onChange={handleChange}
+          value={credentials.password}
         />
         <button className='login__button' type='submit'>
           Log in

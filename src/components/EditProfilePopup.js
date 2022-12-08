@@ -1,5 +1,5 @@
 /* --------------------------------- imports -------------------------------- */
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { useForm } from "react-hook-form";
@@ -7,8 +7,7 @@ import { useForm } from "react-hook-form";
 /* ------------------------ function EditProfilePopup ----------------------- */
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
-  // Subscription to the context
-  const currentUser = React.useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
 
   const {
     register,
@@ -17,15 +16,14 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
     formState: { errors },
   } = useForm();
 
-  React.useEffect(() => {
-    let defaultValues = {};
+  useEffect(() => {
+    const defaultValues = {};
     defaultValues.name = currentUser.name;
     defaultValues.about = currentUser.about;
     reset({ ...defaultValues });
   }, [currentUser, isOpen]);
 
   function handleSubmitPost(validatedData) {
-    // Pass the values of the managed components to the external handler
     onUpdateUser({
       name: validatedData.name,
       description: validatedData.about,

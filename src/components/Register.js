@@ -1,11 +1,8 @@
-import React from "react";
-import { Link, useHistory } from "react-router-dom";
-import * as auth from "../utils/auth.js";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-const Register = ({ setRegStatus, handleInfoTooltip }) => {
-  const history = useHistory();
-
-  const [credentials, setCredentials] = React.useState({
+const Register = ({ registerRequest }) => {
+  const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
@@ -20,29 +17,16 @@ const Register = ({ setRegStatus, handleInfoTooltip }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const email = e.target[0].value;
-    const password = e.target[1].value;
-
+    const email = credentials.email;
+    const password = credentials.password;
     if (!email || !password) {
       return;
     }
-
-    auth
-      .register(password, email)
-      .then((res) => {
-        setRegStatus(true);
-        handleInfoTooltip(true);
-        history.push("/");
-        setCredentials({
-          email: "",
-          password: "",
-        });
-      })
-      .catch((err) => {
-        setRegStatus(false);
-        handleInfoTooltip(true);
-        console.log(err);
-      });
+    registerRequest(password, email);
+    setCredentials({
+      email: "",
+      password: "",
+    });
   };
 
   return (

@@ -12,9 +12,9 @@ import "../index.css";
 function App() {
   const history = useHistory();
   const [loggedIn, setLoggedIn] = useState(false);
-  const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
-  const [userEmail, setUserEmail] = React.useState("");
-  const [regStatus, setRegStatus] = React.useState(true);
+  const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const [regStatus, setRegStatus] = useState(true);
 
   function handleEmail(authStatus) {
     setUserEmail(authStatus);
@@ -38,8 +38,6 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
-
-      // Checking the user's token
       auth
         .checkToken(token)
         .then((res) => {
@@ -53,6 +51,39 @@ function App() {
     }
   }, []);
 
+  function loginRequest(email, password) {
+    auth
+      .authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          handleLogin();
+          handleEmail(email);
+          history.push("/");
+        }
+      })
+      .catch((err) => {
+        setRegStatus(false);
+        handleInfoTooltip(true);
+        console.log(err);
+      });
+  }
+
+  function registerRequest(password, email) {
+    auth
+      .register(password, email)
+      .then((res) => {
+        setRegStatus(true);
+        handleInfoTooltip(true);
+        history.push("/");
+      })
+      .catch((err) => {
+        setRegStatus(false);
+        handleInfoTooltip(true);
+        console.log(err);
+      });
+  }
+
   return (
     <>
       <Header
@@ -63,20 +94,10 @@ function App() {
       />
       <Switch>
         <Route path='/signin'>
-          <Login
-            handleEmail={handleEmail}
-            handleLogin={handleLogin}
-            handleInfoTooltip={handleInfoTooltip}
-            setRegStatus={setRegStatus}
-          />
+          <Login loginRequest={loginRequest} />
         </Route>
         <Route path='/signup'>
-          <Register
-            handleEmail={handleEmail}
-            handleLogin={handleLogin}
-            handleInfoTooltip={handleInfoTooltip}
-            setRegStatus={setRegStatus}
-          />
+          <Register registerRequest={registerRequest} />
         </Route>
         <ProtectedRoute path='/' loggedIn={loggedIn} component={Landingpage} />
         <Route exact path='/'>

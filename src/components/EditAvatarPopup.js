@@ -1,18 +1,20 @@
 /* --------------------------------- imports -------------------------------- */
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { useForm } from "react-hook-form";
 
 /* ------------------------ function EditProfilePopup ----------------------- */
 
 function EditAvatarPopup({ onUpdateAvatar, isLoading, isOpen, onClose }) {
-  const avatarRef = React.useRef(null);
+  const avatarRef = useRef(null);
 
   function handleSubmitPost(validatedData, e) {
     onUpdateAvatar(validatedData);
-    e.target.reset();
-    reset({});
   }
+
+  useEffect(() => {
+    reset({ avatar: "" });
+  }, [isOpen]);
 
   const {
     register,

@@ -1,5 +1,5 @@
 /* --------------------------------- imports -------------------------------- */
-import React from "react";
+import React, { useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { useForm } from "react-hook-form";
 
@@ -15,9 +15,11 @@ function AddPlacePopup({ onAddPlaceSubmit, isLoading, isOpen, onClose }) {
 
   function handleSubmitPost(validatedData, e) {
     onAddPlaceSubmit(validatedData);
-    e.target.reset();
-    reset({});
   }
+
+  useEffect(() => {
+    reset({ name: "", link: "" });
+  }, [isOpen]);
 
   return (
     <PopupWithForm
