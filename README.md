@@ -41,6 +41,6 @@ This is a project that creates a social media type platform similar to Instagram
 
 - [View Live (Without Authentication)](https://kerwindows.github.io/around-react/)
 
-- [View Live (With Authentication)](https://kerwindows.github.io/se_project_react/)
+- [View Live (With Authentication)]( https://kerwindows.students.nomoredomainssbs.ru)
 
 **Improvements**
